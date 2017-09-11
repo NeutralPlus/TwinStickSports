@@ -23,6 +23,10 @@ class AUnrealTwinStickPawn : public APawn
 	UPROPERTY(Category = Camera, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class USpringArmComponent* CameraBoom;
 
+	/** called when this collides with another actor */
+	UFUNCTION()
+	virtual void HandleActorHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit);
+
 public:
 	AUnrealTwinStickPawn();
 

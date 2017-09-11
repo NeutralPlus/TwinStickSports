@@ -12,6 +12,7 @@
 #include "Engine/StaticMesh.h"
 #include "Kismet/GameplayStatics.h"
 #include "Sound/SoundBase.h"
+#include "SnookerBall.h"
 
 const FName AUnrealTwinStickPawn::MoveForwardBinding("MoveForward");
 const FName AUnrealTwinStickPawn::MoveRightBinding("MoveRight");
@@ -50,6 +51,8 @@ AUnrealTwinStickPawn::AUnrealTwinStickPawn()
 	GunOffset = FVector(90.f, 0.f, 0.f);
 	FireRate = 0.1f;
 	bCanFire = true;
+
+	OnActorHit.AddDynamic(this, &AUnrealTwinStickPawn::HandleActorHit);
 }
 
 void AUnrealTwinStickPawn::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
@@ -135,5 +138,13 @@ void AUnrealTwinStickPawn::FireShot(FVector FireDirection)
 void AUnrealTwinStickPawn::ShotTimerExpired()
 {
 	bCanFire = true;
+}
+
+void AUnrealTwinStickPawn::HandleActorHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
+{
+	if (OtherActor->IsA(ASnookerBall::StaticClass()))
+	{
+		OtherActor->Destroy();
+	}
 }
 

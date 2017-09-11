@@ -15,6 +15,10 @@ public:
 	// Sets default values for this actor's properties
 	ASnookerBall();
 
+	/** What is the ball number? E.g. for snooker, 0-14 red, 15-20 yellow-black, 21 white */
+	UPROPERTY(BlueprintReadWrite)
+	int32 BallIndex;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
